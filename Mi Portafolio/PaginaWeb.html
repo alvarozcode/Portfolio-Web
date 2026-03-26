@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Mi Portafolio</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .preview-box {
+      display: none;
+      position: absolute;
+      top: 110%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: white;
+      padding: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      border-radius: 5px;
+      font-size: 14px;
+      z-index: 20;
+      width: 180px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+    .curso:hover .preview-box {
+      display: block;
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* Transición para modal */
+    #detailModal {
+      transition: opacity 0.3s ease;
+    }
+    #detailModal.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+    #detailModal.flex {
+      opacity: 1;
+      pointer-events: auto;
+    }
+  </style>
+</head>
+<body class="bg-gray-100 min-h-screen">
+
+  <!-- HEADER -->
+  <header class="flex flex-col sm:flex-row items-center justify-between gap-4 p-4 bg-green-700 text-white shadow sticky top-0 z-10">
+    <h1 class="text-2xl font-bold">Portafolio de Proyectos</h1>
+    <input
+      id="searchInput"
+      type="text"
+      placeholder="Buscar proyecto..."
+      aria-label="Buscar proyecto"
+      class="text-black border rounded px-3 py-2 w-full sm:w-64 focus:outline-none focus:ring focus:border-blue-300"
+    />
+  </header>
+
+  <!-- NAV DE CATEGORÍAS -->
+  <nav role="navigation" aria-label="Filtros de proyectos" class="flex flex-wrap justify-center gap-2 p-4 bg-white shadow">
+    <button data-cat="Todas" aria-pressed="true" class="filter-btn bg-blue-500 px-3 py-1 rounded">Todas</button>
+    <button data-cat="Biografia" aria-pressed="false" class="filter-btn bg-blue-200 px-3 py-1 rounded">Biografia</button>
+    <button data-cat="Universidad" aria-pressed="false" class="filter-btn bg-blue-200 px-3 py-1 rounded">Universidad</button>
+    <button data-cat="Logros" aria-pressed="false" class="filter-btn bg-blue-200 px-3 py-1 rounded">Logros</button>
+    <button data-cat="Otros" aria-pressed="false" class="filter-btn bg-blue-200 px-3 py-1 rounded">Otros</button>
+  </nav>
+
+  <!-- MAIN: GRID DE PROYECTOS -->
+  <main id="projectGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 p-4"></main>
+
+  <!-- MODAL DE DETALLES -->
+  <div id="detailModal" class="fixed inset-0 bg-black/60 hidden items-center justify-center z-50 overflow-auto">
+    <div class="bg-white p-4 rounded-lg max-w-3xl w-full relative" role="dialog" aria-modal="true" aria-labelledby="modalTitle" tabindex="-1">
+      <button id="closeModal" aria-label="Cerrar modal" class="absolute top-2 right-4 text-2xl text-gray-600 hover:text-gray-900 transition">&times;</button>
+      <div id="modalContent"></div>
+    </div>
+  </div>
+
+  <script>
+    /* ==== PROYECTOS ==== */
+    const projects = [
+      { id: 1, name: "Biografia", category: "Biografia", description: "Mi página personal con HTML, CSS y JS.", image: "", link: "https://example.com" },
+      { id: 2, name: "Universidad", category: "Universidad", description: "", image: "img/uhu.jpg", link: "#" },
+      { id: 3, name: "Logros y cursos", category: "Logros", description: "Proyecto de branding y diseño de logo.", image: "img/diseno-logo.jpg", link: "https://example.com" },
+      { id: 4, name: "Script de Automatización", category: "Otros", description: "Script en Python para automatizar tareas repetitivas.", image: "img/automatizacion.jpg", link: "https://example.com" }
+    ];
+
+    const cursos = [
+      { nombre: "1º Curso", asignaturas: ["Matemáticas I", "Matematicas II", "Matematicas III", "Fisica", "Fundamentos de programacion", "Estructura de datos I", "Fundamentos de Computadores", "Tecnologia de computadores", "Fundamentos y analisis de algoritmos", "Administracion de Empresas"] },
+      { nombre: "2º Curso", asignaturas: ["Metodologia de la programacion", "Fundamento de redes de computadores", "Bases de Datos", "Estructura de Computadores", "Arquitectura de computadores", "Diseño y estructura de los sistemas operativos", "Estructura de datos II", "Principios y fundamentos de la ingenieria del software", "Inteligencia Artificial", "Administracion y programacion de sistemas operativos"] },
+      { nombre: "3º Curso", asignaturas: ["Algoritmica y modelos de computacion", "Diseño y desarrollo de sistemas de informacion", "Interconexion de redes de computadores", "Programacion Concurrente y Distribuida", "Elaboracion de proyectos informaticos", "Arquitectura del software dirigida por modelos", "Diseño de interfaces de usuario", "Ingenieria de requisitos", "Metodos formales en ingenieria de Software", "Sistemas distribuidos"] },
+      { nombre: "4º Curso", asignaturas: ["Integracion de la informacion y aplicaciones", "Calidad medicion y estimacion y productos software", "Robotica", "Procesamiento del habla", "Mantenimiento y Gestion del cambio en sistemas software"] }
+    ];
+
+    const grid = document.getElementById("projectGrid");
+    const search = document.getElementById("searchInput");
+    const filterBtns = document.querySelectorAll(".filter-btn");
+    const modal = document.getElementById("detailModal");
+    const modalContent = document.getElementById("modalContent");
+    const closeModal = document.getElementById("closeModal");
+
+    let query = "";
+    let selectedCategory = "Todas";
+
+    function renderProjects() {
+      const list = getProjectList();
+      grid.innerHTML = "";
+      list.forEach((item) => generateProjectCard(item));
+      // Añadimos listener a los botones de "Ver detalles"
+      document.querySelectorAll("[data-id]").forEach((btn) => {
+        btn.addEventListener("click", () => openProjectModal(btn.dataset.id));
+      });
+    }
+
+    function openProjectModal(id) {
+      const item = projects.find((x) => x.id == id);
+      if (item.name === "Universidad") {
+        renderUniversidadContent();
+      } else {
+        modalContent.innerHTML = `
+          <div class="flex flex-col items-center">
+            <img src="${item.image}" alt="${item.name}" class="max-h-64 mb-4 object-cover w-full rounded" />
+            <h2 id="modalTitle" class="text-xl font-bold mb-2">${item.name}</h2>
+            <p class="text-gray-700 mb-3">${item.description}</p>
+            <a href="${item.link}" target="_blank" rel="noopener noreferrer" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition">Ver Proyecto</a>
+          </div>
+        `;
+      }
+      modal.classList.remove("hidden");
+      modal.classList.add("flex");
+      modal.focus();
+    }
+
+    const generateProjectCard = (item) => {
+      const card = document.createElement("div");
+      card.className = "bg-white rounded-lg shadow overflow-hidden flex flex-col";
+
+      // Imagen más pequeña para Universidad
+      const imgClass = item.name === "Universidad" ? "h-32 w-full object-cover rounded-t" : "h-44 w-full object-cover rounded-t";
+
+      card.innerHTML = `
+        <img src="${item.image}" alt="${item.name}" class="w-full h-32 object-contain rounded-t bg-white p-2" />
+        <div class="p-4 flex-1 flex flex-col">
+          <h3 class="font-semibold text-lg mb-2">${item.name}</h3>
+          <p class="text-gray-600 font-bold mb-4">Categoría: ${item.category}</p>
+          <button data-id="${item.id}" class="mt-auto bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition">Ver detalles</button>
+        </div>
+      `;
+      grid.appendChild(card);
+    };
+
+    function renderUniversidadContent() {
+      modalContent.innerHTML = `
+        <h2 id="modalTitle" class="text-2xl font-bold mb-4 text-center">Universidad</h2>
+        <p class="text-center mb-6">Haz clic en un curso para ver todas las asignaturas.</p>
+        <div class="flex flex-wrap justify-center gap-6" id="galeriaCursos"></div>
+        <div id="detalleCurso" class="bg-gray-100 rounded-lg shadow p-4 mt-6 max-w-2xl mx-auto hidden"></div>
+        <div class="mt-6 text-center">
+          <a href="asignaturas.html" class="inline-block bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition">Ver Asignaturas</a>
+        </div>
+      `;
+
+      const galeria = modalContent.querySelector("#galeriaCursos");
+      const detalle = modalContent.querySelector("#detalleCurso");
+
+      cursos.forEach((curso) => {
+        const div = document.createElement("div");
+        div.className = "curso bg-white rounded-lg shadow p-4 w-48 cursor-pointer relative text-center";
+        div.innerHTML = `
+          <h3 class="font-bold">${curso.nombre}</h3>
+          <div class="preview-box" aria-hidden="true">
+            ${curso.asignaturas.slice(0, 3).join("<br>")}<br>...
+          </div>
+        `;
+        div.addEventListener("click", () => {
+          detalle.classList.remove("hidden");
+          detalle.innerHTML = `
+            <h3 class="text-xl font-bold mb-2">${curso.nombre}</h3>
+            <ul class="list-disc pl-5">
+              ${curso.asignaturas.map(asig => `<li>${asig}</li>`).join("")}
+            </ul>
+          `;
+          detalle.scrollIntoView({ behavior: "smooth" });
+        });
+        galeria.appendChild(div);
+      });
+    }
+
+    // Cerrar modal al click en botón o fuera del contenido
+    closeModal.addEventListener("click", closeModalFunction);
+    modal.addEventListener("click", (e) => {
+      if(e.target === modal) {
+        closeModalFunction();
+      }
+    });
+    function closeModalFunction() {
+      modal.classList.add("hidden");
+      modal.classList.remove("flex");
+      modalContent.innerHTML = ""; // limpiar contenido modal
+    }
+
+    // Buscador y filtro
+    search.addEventListener("input", (e) => {
+      query = e.target.value.toLowerCase();
+      renderProjects();
+    });
+
+    filterBtns.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        selectedCategory = btn.dataset.cat;
+        filterBtns.forEach((b) => {
+          b.classList.replace("bg-blue-500", "bg-blue-200");
+          b.setAttribute("aria-pressed", "false");
+        });
+        btn.classList.replace("bg-blue-200", "bg-blue-500");
+        btn.setAttribute("aria-pressed", "true");
+        renderProjects();
+      });
+    });
+
+    const getProjectList = () => {
+      return projects.filter((item) => {
+        const matchName = item.name.toLowerCase().includes(query);
+        const matchCat = selectedCategory === "Todas" || item.category === selectedCategory;
+        return matchName && matchCat;
+      });
+    };
+
+    renderProjects();
+  </script>
+</body>
+</html>

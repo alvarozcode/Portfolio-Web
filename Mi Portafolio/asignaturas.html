@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Asignaturas Universidad</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen p-6">
+
+  <header class="mb-6">
+    <h1 class="text-3xl font-bold text-center">Asignaturas Universidad</h1>
+  </header>
+
+  <main class="max-w-3xl mx-auto bg-white rounded shadow p-6">
+    <section>
+      <h2 class="text-xl font-semibold mb-4">Listado completo de asignaturas por curso</h2>
+      <div id="listaAsignaturas" class="space-y-6"></div>
+    </section>
+  </main>
+
+  <script>
+    const cursos = [
+      { nombre: "1º Curso", asignaturas: ["Matemáticas I", "Fundamentos de programación",  "Fundamentos de computadores" ,"Matemáticas II", "Matemáticas III", "Estructura de datos I", "Física", "Fundamentos y Analisis de Algoritmos", "Administración de Empresas", "Tecnologia de Computadores"] },
+      { nombre: "2º Curso", asignaturas: [, "Programación II", "Bases de Datos", "Electrónica", "Estadística"] },
+      { nombre: "3º Curso", asignaturas: ["Sistemas Operativos", "Redes", "Desarrollo Web", "Inteligencia Artificial", "Seguridad Informática"] },
+      { nombre: "4º Curso", asignaturas: ["Proyecto Final", "Computación en la Nube", "Big Data", "Machine Learning", "Ética Profesional"] }
+    ];
+
+    const contenedor = document.getElementById("listaAsignaturas");
+
+    cursos.forEach(curso => {
+      const div = document.createElement("div");
+      div.innerHTML = `
+        <h3 class="text-lg font-bold mb-2">${curso.nombre}</h3>
+        <ul class="list-disc pl-5">
+          ${curso.asignaturas.map(a => `<li>${a}</li>`).join('')}
+        </ul>
+      `;
+      contenedor.appendChild(div);
+    });
+  </script>
+  
+</body>
+</html>
