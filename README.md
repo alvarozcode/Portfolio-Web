@@ -1,31 +1,41 @@
-# 👨‍💻 Portafolio Web Personal | Álvaro
+# Álvaro Zarzuela — Portfolio
 
-![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)
-![Tailwind CSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)
-![GitHub Pages](https://img.shields.io/badge/github%20pages-121013?style=for-the-badge&logo=github&logoColor=white)
+Software Engineer & Builder · Founder of **Valiware Loyalty** · Applied AI & Cryptographic Systems
 
-Bienvenido al repositorio de mi portafolio web personal. Este proyecto sirve como carta de presentación interactiva donde expongo mi perfil profesional, mis habilidades técnicas y mis proyectos más destacados en desarrollo de software.
+**Live:** https://alvarozcode.github.io/Portfolio-Web/
 
-## 🚀 Live Demo
+A single-page, bilingual (EN default / ES) portfolio built with plain HTML, CSS and JavaScript. No framework or build step. It is deployed as-is on GitHub Pages.
 
-Puedes ver la página web totalmente funcional y desplegada aquí:  
-**👉 [Ver Portafolio Online](https://alvarozcode.github.io/Portfolio-web/)**
+## Structure
 
-## 🛠️ Tecnologías y Arquitectura
+```
+index.html        Single-page markup (all sections, inline SVG icon sprite)
+styles.css        Design tokens (dark/light), layout, components, motion
+main.js           Language switch, theme toggle, mobile nav, scroll reveal
+i18n.js           EN / ES translation dictionary
+404.html          Not-found page; redirects legacy URLs (proyectos.html…) to sections
+assets/
+  cv-english.pdf  English CV (hero button in EN view)
+  cv-spanish.pdf  Spanish CV (hero button in ES view)
+  favicon.svg
+  img/profile.jpeg
+```
 
-Este proyecto ha sido desarrollado desde cero aplicando buenas prácticas de maquetación y diseño moderno:
+## How translation works
 
-* **Estructura:** HTML5 semántico.
-* **Estilos:** Tailwind CSS (diseño responsivo adaptado a móviles, tablets y escritorio).
-* **Despliegue e Integración Continua:** Alojado mediante el motor de GitHub Pages.
+- Translatable text carries `data-i18n="section.key"`, and translatable attributes carry `data-i18n-attr="aria-label:key"`.
+- `i18n.js` exposes `window.I18N = { en: {...}, es: {...} }`. `main.js` swaps the text in place without reloading the page and stores the choice in `localStorage`.
+- English is the default. Technology names and badges are deliberately not translated.
+- To add a string, add the key to **both** `en` and `es` in `i18n.js`, then reference it in `index.html`.
 
-## 📂 Proyectos Integrados
+## Local preview
 
-A través de la interfaz web, se puede acceder al código fuente de mis proyectos principales:
-1.  **Optimizador Algorítmico Geoespacial:** [Java, Swing, Divide y Vencerás]
-2.  **Sistema de Gestión de Gimnasio:** [Java, Patrón MVC, MySQL]
-3.  **Motor de Procesamiento de Tráfico:** [C++, Eficiencia Algorítmica, Memoria Dinámica]
+Open `index.html` directly, or serve the folder:
 
-## ✉️ Contacto
+```bash
+python -m http.server 8000
+```
 
-Si te interesa mi perfil o quieres hablar sobre desarrollo y código, puedes contactarme a través de los enlaces disponibles en la sección superior de la web.
+## Contact
+
+alvarozcode@gmail.com · [LinkedIn](https://www.linkedin.com/in/%C3%A1lvaro-zarzuela-moncada-98938035b/) · [GitHub](https://github.com/alvarozcode)

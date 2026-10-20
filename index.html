@@ -1,10 +1,571 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en" data-theme="light">
 <head>
-  <meta http-equiv="refresh" content="0; url=PaginaPrincipal.html">
-  <title>Redirigiendo...</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Álvaro Zarzuela — Software Engineer &amp; Founder of Valiware Loyalty</title>
+  <meta name="description" content="Software engineer and founder of Valiware Loyalty: customer loyalty and retention for physical businesses, combining clone-resistant NFC hardware (NTAG 424 DNA, SUN) with autonomous multi-agent decision systems." />
+  <meta name="author" content="Álvaro Zarzuela Moncada" />
+  <meta name="color-scheme" content="light dark" />
+  <meta name="theme-color" content="#f7f7fa" />
+  <link rel="canonical" href="https://alvarozcode.github.io/Portfolio-Web/" />
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+
+  <!-- Open Graph (LinkedIn / Slack / X previews) -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Álvaro Zarzuela — Software Engineer & Founder of Valiware Loyalty" />
+  <meta property="og:description" content="Bridging clone-resistant NFC hardware with real-time distributed backends and autonomous multi-agent decision systems." />
+  <meta property="og:url" content="https://alvarozcode.github.io/Portfolio-Web/" />
+  <meta property="og:image" content="https://alvarozcode.github.io/Portfolio-Web/assets/img/profile.jpeg" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:locale:alternate" content="es_ES" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <!-- Apply saved theme + language before first paint (prevents flash) -->
+  <script>
+    (function () {
+      var root = document.documentElement, theme, lang;
+      root.classList.add("js");
+      // Safety net: if main.js never boots, drop the reveal-hiding class so content stays visible
+      setTimeout(function () { if (!window.__appReady) root.classList.remove("js"); }, 2500);
+      try { theme = localStorage.getItem("theme"); lang = localStorage.getItem("lang"); } catch (e) {}
+      if (theme !== "light" && theme !== "dark") theme = "light"; // first visit: light by default
+      root.setAttribute("data-theme", theme);
+      root.setAttribute("lang", lang === "es" ? "es" : "en");
+    })();
+  </script>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="styles.css" />
+  <script src="i18n.js" defer></script>
+  <script src="main.js" defer></script>
 </head>
+
 <body>
-  <p>Si no eres redirigido automáticamente, <a href="PaginaPrincipal.html">haz clic aquí</a>.</p>
+  <!-- ======================================================================
+       Inline SVG icon sprite — referenced with <use href="#i-name">
+       ====================================================================== -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="i-github" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12.02c0 4.42 2.87 8.17 6.84 9.5.5.09.68-.22.68-.48l-.01-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.89 1.53 2.34 1.09 2.91.83.09-.65.35-1.09.64-1.34-2.22-.25-4.56-1.11-4.56-4.95 0-1.09.39-1.99 1.03-2.69-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.03a9.56 9.56 0 0 1 5 0c1.91-1.3 2.75-1.03 2.75-1.03.55 1.38.2 2.4.1 2.65.64.7 1.03 1.6 1.03 2.69 0 3.85-2.34 4.7-4.57 4.94.36.31.68.92.68 1.86l-.01 2.75c0 .27.18.58.69.48A10.02 10.02 0 0 0 22 12.02C22 6.48 17.52 2 12 2z"/></symbol>
+    <symbol id="i-linkedin" viewBox="0 0 24 24"><path fill="currentColor" d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></g></symbol>
+    <symbol id="i-download" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11"/><path d="m7 10 5 5 5-5"/><path d="M5 20h14"/></g></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></g></symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4.5" y="10.5" width="15" height="10" rx="2"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/></g></symbol>
+    <symbol id="i-sun" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" d="M4 7h16M4 12h16M4 17h16"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></g></symbol>
+    <symbol id="i-cap" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m2 9 10-5 10 5-10 5z"/><path d="M6 11v5c3 2 9 2 12 0v-5"/></g></symbol>
+    <symbol id="i-spark" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5 18 18M6 18l2.5-2.5M15.5 8.5 18 6"/></symbol>
+    <symbol id="i-nfc" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M6 8.5a5 5 0 0 1 0 7"/><path d="M9.5 6a9 9 0 0 1 0 12"/><path d="M13 3.5a13 13 0 0 1 0 17"/></g></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4.5 6v5.5c0 4.6 3.2 8.4 7.5 9.5 4.3-1.1 7.5-4.9 7.5-9.5V6z"/><path d="m9 12 2 2 4-4"/></g></symbol>
+    <symbol id="i-db" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8"><ellipse cx="12" cy="6" rx="7" ry="3"/><path d="M5 6v12c0 1.7 3.1 3 7 3s7-1.3 7-3V6M5 12c0 1.7 3.1 3 7 3s7-1.3 7-3"/></g></symbol>
+    <symbol id="i-agents" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="5" r="2.2"/><circle cx="5" cy="18" r="2.2"/><circle cx="19" cy="18" r="2.2"/><path d="M11 7 6 16M13 7l5 9M7.2 18h9.6"/></g></symbol>
+    <symbol id="i-code" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="m8 8-4 4 4 4M16 8l4 4-4 4M13.5 5l-3 14"/></symbol>
+  </svg>
+
+  <a class="skip-link" href="#main" data-i18n="nav.skip">Skip to content</a>
+
+  <!-- ======================================================================
+       NAVIGATION
+       ====================================================================== -->
+  <header class="nav" id="top">
+    <div class="container nav__inner">
+      <a class="nav__brand" href="#top" aria-label="Álvaro Zarzuela — home">
+        <span class="nav__name">Álvaro Zarzuela</span>
+      </a>
+
+      <nav class="nav__links" id="nav-links" aria-label="Primary">
+        <a href="#valiware" data-i18n="nav.valiware">Valiware Loyalty</a>
+        <a href="#projects" data-i18n="nav.projects">Projects</a>
+        <a href="#about" data-i18n="nav.about">About</a>
+        <a href="#skills" data-i18n="nav.skills">Skills</a>
+        <a href="#education" data-i18n="nav.education">Education</a>
+        <a href="#contact" data-i18n="nav.contact">Contact</a>
+      </nav>
+
+      <div class="nav__controls">
+        <!-- Language switch (EN default) -->
+        <div class="lang-switch" role="group" data-i18n-attr="aria-label:nav.lang" aria-label="Change language">
+          <button type="button" class="lang-switch__btn" data-lang="en" aria-pressed="true">EN</button>
+          <button type="button" class="lang-switch__btn" data-lang="es" aria-pressed="false">ES</button>
+        </div>
+
+        <!-- Theme toggle -->
+        <button type="button" class="icon-btn" id="theme-toggle" data-i18n-attr="aria-label:nav.theme" aria-label="Toggle light / dark theme">
+          <svg class="icon icon--sun" aria-hidden="true"><use href="#i-sun" /></svg>
+          <svg class="icon icon--moon" aria-hidden="true"><use href="#i-moon" /></svg>
+        </button>
+
+        <!-- Mobile menu -->
+        <button type="button" class="icon-btn nav__menu-btn" id="menu-toggle" aria-controls="nav-links" aria-expanded="false" data-i18n-attr="aria-label:nav.menu" aria-label="Open menu">
+          <svg class="icon" aria-hidden="true"><use href="#i-menu" /></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- ====================================================================
+         HERO
+         ==================================================================== -->
+    <section class="hero">
+      <div class="hero__grid-bg" aria-hidden="true"></div>
+      <div class="container hero__inner">
+        <div class="hero__text">
+          <p class="status-pill reveal">
+            <span class="status-pill__dot" aria-hidden="true"></span>
+            <span data-i18n="hero.status">Building Valiware Loyalty · Pre-seed</span>
+          </p>
+
+          <h1 class="hero__name reveal">Álvaro Zarzuela Moncada</h1>
+
+          <p class="hero__lead reveal" data-i18n="hero.lead">
+            Software Engineer &amp; Founder @ Valiware Loyalty. Bridging clone-resistant NFC hardware with real-time distributed backends and autonomous multi-agent decision systems.
+          </p>
+
+          <div class="hero__ctas reveal">
+            <!-- href/download swap with the active language (see hero.cv.* in i18n.js) -->
+            <a class="btn btn--primary" id="cv-link" href="assets/cv-english.pdf" download="Alvaro-Zarzuela-CV-EN.pdf" data-i18n-attr="href:hero.cv.file;download:hero.cv.name">
+              <svg class="icon" aria-hidden="true"><use href="#i-download" /></svg>
+              <span data-i18n="hero.cta.cv">Download CV</span>
+            </a>
+            <a class="btn btn--ghost" href="https://github.com/alvarozcode" target="_blank" rel="noopener noreferrer">
+              <svg class="icon" aria-hidden="true"><use href="#i-github" /></svg>
+              <span data-i18n="hero.cta.github">GitHub Profile</span>
+            </a>
+            <a class="btn btn--ghost" href="#contact">
+              <svg class="icon" aria-hidden="true"><use href="#i-mail" /></svg>
+              <span data-i18n="hero.cta.contact">Get in Touch</span>
+            </a>
+          </div>
+
+          <ul class="hero__meta reveal">
+            <li><svg class="icon" aria-hidden="true"><use href="#i-pin" /></svg><span data-i18n="hero.meta.location">Huelva, Spain · Remote-friendly</span></li>
+            <li><svg class="icon" aria-hidden="true"><use href="#i-cap" /></svg><span data-i18n="hero.meta.study">Final-year Computer Engineering</span></li>
+            <li><svg class="icon" aria-hidden="true"><use href="#i-spark" /></svg><span data-i18n="hero.meta.cade">Supported by CADE · Andalucía Emprende</span></li>
+          </ul>
+        </div>
+
+        <figure class="hero__portrait reveal">
+          <img src="assets/img/profile.jpeg" width="785" height="1046" alt="Portrait of Álvaro Zarzuela" data-i18n-attr="alt:hero.photo" />
+        </figure>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         FEATURED PROJECT — VALIWARE LOYALTY (proprietary: no public repo link)
+         ==================================================================== -->
+    <section class="section" id="valiware">
+      <div class="container">
+        <article class="featured reveal">
+          <div class="featured__glow" aria-hidden="true"></div>
+
+          <header class="featured__head">
+            <p class="eyebrow" data-i18n="vw.eyebrow">Featured · Startup</p>
+            <span class="badge badge--private">
+              <svg class="icon" aria-hidden="true"><use href="#i-lock" /></svg>
+              <span data-i18n="vw.private">Private / Enterprise Core</span>
+            </span>
+          </header>
+
+          <h2 class="featured__name">Valiware Loyalty</h2>
+          <p class="featured__title" data-i18n="vw.title">Autonomous Decision Systems &amp; Physical Crypto-Verification</p>
+
+          <div class="featured__body">
+            <div>
+              <p class="featured__desc" data-i18n="vw.desc">
+                Full-stack customer loyalty and retention platform for physical businesses. Eliminates mobile app and plastic card friction through NXP NTAG 424 DNA chips with AES-128 SUN dynamic cryptographic verification. Built on Next.js, PostgreSQL/RLS, and Redis, integrating an autonomous decision-agent layer (in active development) designed to balance perishable capacity and maximize recurring customer lifetime value.
+              </p>
+
+              <ul class="tags" aria-label="Tech stack">
+                <li class="tag">Next.js</li>
+                <li class="tag">PostgreSQL (RLS)</li>
+                <li class="tag">Redis</li>
+                <li class="tag">NXP NTAG 424 DNA (AES-128 SUN)</li>
+                <li class="tag">Python</li>
+                <li class="tag" data-i18n="vw.tag.agents">Decision agents (in development)</li>
+              </ul>
+            </div>
+
+            <dl class="facts">
+              <div class="facts__row">
+                <dt data-i18n="vw.stage.label">Stage</dt>
+                <dd data-i18n="vw.stage.value">Pre-seed · Supported by CADE (Andalucía Emprende)</dd>
+              </div>
+              <div class="facts__row">
+                <dt data-i18n="vw.code.label">Source</dt>
+                <dd data-i18n="vw.code.value">Proprietary — closed-source intellectual property</dd>
+              </div>
+            </dl>
+          </div>
+
+          <!-- Architecture pipeline -->
+          <h3 class="flow__title mono" data-i18n="vw.flow.title">How it works</h3>
+          <ol class="flow">
+            <li class="flow__step">
+              <span class="flow__icon"><svg class="icon" aria-hidden="true"><use href="#i-nfc" /></svg></span>
+              <span class="flow__idx mono">01</span>
+              <h4 data-i18n="vw.flow.1.title">Physical tap</h4>
+              <p data-i18n="vw.flow.1.desc">The NTAG 424 DNA chip generates a SUN URL with an encrypted UID, a monotonic counter and an AES-128 CMAC.</p>
+            </li>
+            <li class="flow__step">
+              <span class="flow__icon"><svg class="icon" aria-hidden="true"><use href="#i-shield" /></svg></span>
+              <span class="flow__idx mono">02</span>
+              <h4 data-i18n="vw.flow.2.title">Crypto verification</h4>
+              <p data-i18n="vw.flow.2.desc">The backend recomputes the CMAC and enforces counter monotonicity, rejecting cloned or replayed taps.</p>
+            </li>
+            <li class="flow__step">
+              <span class="flow__icon"><svg class="icon" aria-hidden="true"><use href="#i-db" /></svg></span>
+              <span class="flow__idx mono">03</span>
+              <h4 data-i18n="vw.flow.3.title">Event store</h4>
+              <p data-i18n="vw.flow.3.desc">Verified events land in PostgreSQL with row-level security; Redis handles hot state and rate limits.</p>
+            </li>
+            <li class="flow__step">
+              <span class="flow__icon"><svg class="icon" aria-hidden="true"><use href="#i-agents" /></svg></span>
+              <span class="flow__idx mono">04</span>
+              <h4 data-i18n="vw.flow.4.title">Agent decisions</h4>
+              <p data-i18n="vw.flow.4.desc">An autonomous decision-agent layer (in active development) reasons over verified signals to act on capacity and retention in real time.</p>
+            </li>
+          </ol>
+        </article>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         OTHER PROJECTS (public repositories)
+         ==================================================================== -->
+    <section class="section" id="projects">
+      <div class="container">
+        <header class="section__head reveal">
+          <p class="eyebrow" data-i18n="projects.eyebrow">Open source</p>
+          <h2 class="section__title" data-i18n="projects.title">Other projects</h2>
+          <p class="section__lead" data-i18n="projects.lead">Public work from university and personal research. Each card links to its repository.</p>
+        </header>
+
+        <div class="projects">
+          <!-- 1 · Malware triage orchestrator (first: AI + security) -->
+          <article class="card project reveal">
+            <div class="project__top">
+              <span class="project__icon"><svg class="icon" aria-hidden="true"><use href="#i-shield" /></svg></span>
+              <span class="project__repo mono">orquestador-reversing-ia</span>
+            </div>
+            <h3 class="project__title" data-i18n="p1.title">AI Malware Triage &amp; Reversing Orchestrator</h3>
+            <p class="project__desc" data-i18n="p1.desc">LLM-assisted triage pipeline for suspicious executables: extracts SHA-256 and strings, requests a static diagnosis from Claude, and produces a Markdown report ready for a tier-1 analyst.</p>
+            <ul class="tags">
+              <li class="tag">Python</li>
+              <li class="tag">Streamlit</li>
+              <li class="tag">Anthropic API</li>
+              <li class="tag">Static Analysis</li>
+            </ul>
+            <a class="project__link" href="https://github.com/alvarozcode/orquestador-reversing-ia" target="_blank" rel="noopener noreferrer">
+              <svg class="icon" aria-hidden="true"><use href="#i-github" /></svg>
+              <span data-i18n="projects.code">View code</span>
+              <svg class="icon project__arrow" aria-hidden="true"><use href="#i-arrow" /></svg>
+            </a>
+          </article>
+
+          <!-- 2 · Algorithmic optimiser -->
+          <article class="card project reveal">
+            <div class="project__top">
+              <span class="project__icon"><svg class="icon" aria-hidden="true"><use href="#i-code" /></svg></span>
+              <span class="project__repo mono">Optimizador-Algoritmico</span>
+            </div>
+            <h3 class="project__title" data-i18n="p2.title">Geospatial Algorithmic Optimizer</h3>
+            <p class="project__desc" data-i18n="p2.desc">Closest-pair engine over TSPLIB datasets of up to 5,000 points. Benchmarks brute force, pruning and an improved divide-and-conquer, cutting complexity from O(n²) to O(n log n) with visual timing comparisons.</p>
+            <ul class="tags">
+              <li class="tag">Java</li>
+              <li class="tag">Swing</li>
+              <li class="tag">Divide &amp; Conquer</li>
+              <li class="tag">O(n log n)</li>
+              <li class="tag">Benchmarking</li>
+            </ul>
+            <a class="project__link" href="https://github.com/alvarozcode/Optimizador-Algoritmico" target="_blank" rel="noopener noreferrer">
+              <svg class="icon" aria-hidden="true"><use href="#i-github" /></svg>
+              <span data-i18n="projects.code">View code</span>
+              <svg class="icon project__arrow" aria-hidden="true"><use href="#i-arrow" /></svg>
+            </a>
+          </article>
+
+          <!-- 3 · Traffic processing engine -->
+          <article class="card project reveal">
+            <div class="project__top">
+              <span class="project__icon"><svg class="icon" aria-hidden="true"><use href="#i-db" /></svg></span>
+              <span class="project__repo mono">Motor-Procesamiento-Trafico</span>
+            </div>
+            <h3 class="project__title" data-i18n="p3.title">Traffic Processing Engine</h3>
+            <p class="project__desc" data-i18n="p3.desc">C++ engine for processing real traffic and speed-camera datasets, focused on data-structure efficiency, dynamic memory management and empirical performance benchmarking.</p>
+            <ul class="tags">
+              <li class="tag">C++</li>
+              <li class="tag">Data Structures</li>
+              <li class="tag">Memory Management</li>
+              <li class="tag">Benchmarking</li>
+            </ul>
+            <a class="project__link" href="https://github.com/alvarozcode/Motor-Procesamiento-Trafico" target="_blank" rel="noopener noreferrer">
+              <svg class="icon" aria-hidden="true"><use href="#i-github" /></svg>
+              <span data-i18n="projects.code">View code</span>
+              <svg class="icon project__arrow" aria-hidden="true"><use href="#i-arrow" /></svg>
+            </a>
+          </article>
+
+          <!-- 4 · Gym management -->
+          <article class="card project reveal">
+            <div class="project__top">
+              <span class="project__icon"><svg class="icon" aria-hidden="true"><use href="#i-agents" /></svg></span>
+              <span class="project__repo mono">Gestion-Gimnasio</span>
+            </div>
+            <h3 class="project__title" data-i18n="p4.title">Gym Management System</h3>
+            <p class="project__desc" data-i18n="p4.desc">Desktop application for end-to-end management of a sports centre — members, instructors and activities — built on a strict Model-View-Controller architecture with Hibernate persistence.</p>
+            <ul class="tags">
+              <li class="tag">Java</li>
+              <li class="tag">MVC</li>
+              <li class="tag">Hibernate</li>
+              <li class="tag">MySQL / MariaDB</li>
+            </ul>
+            <a class="project__link" href="https://github.com/alvarozcode/Gestion-Gimnasio" target="_blank" rel="noopener noreferrer">
+              <svg class="icon" aria-hidden="true"><use href="#i-github" /></svg>
+              <span data-i18n="projects.code">View code</span>
+              <svg class="icon project__arrow" aria-hidden="true"><use href="#i-arrow" /></svg>
+            </a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         ABOUT — three guiding principles
+         ==================================================================== -->
+    <section class="section" id="about">
+      <div class="container">
+        <header class="section__head reveal">
+          <p class="eyebrow" data-i18n="about.eyebrow">About</p>
+          <h2 class="section__title" data-i18n="about.title">What drives me</h2>
+        </header>
+
+        <div class="about">
+          <article class="card about__item reveal">
+            <span class="project__icon"><svg class="icon" aria-hidden="true"><use href="#i-shield" /></svg></span>
+            <h3 class="about__title" data-i18n="about.1.title">Engineering with Purpose</h3>
+            <p class="about__desc" data-i18n="about.1.desc">I believe in technical rigor and software craftsmanship: building resilient systems that deliver measurable value from day one.</p>
+          </article>
+
+          <article class="card about__item reveal">
+            <span class="project__icon"><svg class="icon" aria-hidden="true"><use href="#i-arrow" /></svg></span>
+            <h3 class="about__title" data-i18n="about.2.title">The Entrepreneurial Drive</h3>
+            <p class="about__desc" data-i18n="about.2.desc">My ambition is to build global-scale Deep Tech ventures from Southern Europe, proving that world-class engineering can solve tangible, real-economy problems.</p>
+          </article>
+
+          <article class="card about__item reveal">
+            <span class="project__icon"><svg class="icon" aria-hidden="true"><use href="#i-spark" /></svg></span>
+            <h3 class="about__title" data-i18n="about.3.title">Continuous Evolution</h3>
+            <p class="about__desc" data-i18n="about.3.desc">My core driver is relentless curiosity and learning velocity. I treat every technical hurdle and business challenge as a vector to push past my own limits.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         TECHNICAL SKILLS
+         ==================================================================== -->
+    <section class="section" id="skills">
+      <div class="container">
+        <header class="section__head reveal">
+          <p class="eyebrow" data-i18n="skills.eyebrow">Stack</p>
+          <h2 class="section__title" data-i18n="skills.title">Technical skills &amp; tooling</h2>
+          <p class="section__lead" data-i18n="skills.lead">The tools I use to build, secure and ship — grouped by domain.</p>
+        </header>
+
+        <div class="skills">
+          <div class="card skill reveal">
+            <h3 class="skill__title"><svg class="icon" aria-hidden="true"><use href="#i-nfc" /></svg><span data-i18n="skills.crypto">Hardware &amp; Cryptography</span></h3>
+            <ul class="chips">
+              <li data-i18n="skills.tag.appcrypto">Applied cryptography</li>
+              <li>NXP NTAG 424 DNA</li>
+              <li>SUN / SDM</li>
+              <li>AES-128 CMAC</li>
+              <li data-i18n="skills.tag.replay">Anti-replay counters</li>
+              <li>NFC</li>
+            </ul>
+          </div>
+
+          <div class="card skill reveal">
+            <h3 class="skill__title"><svg class="icon" aria-hidden="true"><use href="#i-shield" /></svg><span data-i18n="skills.security">Software &amp; Systems Security</span></h3>
+            <ul class="chips">
+              <li>Row-Level Security</li>
+              <li data-i18n="skills.tag.netsec">Network security (TCP/IP)</li>
+              <li data-i18n="skills.tag.vuln">Vulnerability analysis</li>
+              <li data-i18n="skills.tag.static">Static malware analysis</li>
+              <li data-i18n="skills.tag.hardening">Linux hardening</li>
+              <li>Nmap</li>
+              <li>Wireshark</li>
+              <li>Burp Suite</li>
+            </ul>
+          </div>
+
+          <div class="card skill reveal">
+            <h3 class="skill__title"><svg class="icon" aria-hidden="true"><use href="#i-db" /></svg><span data-i18n="skills.backend">Backend &amp; Distributed Systems</span></h3>
+            <ul class="chips">
+              <li>Next.js</li>
+              <li>PostgreSQL</li>
+              <li>Supabase</li>
+              <li>Redis (Upstash)</li>
+              <li>MVC</li>
+              <li data-i18n="skills.tag.design">Design patterns</li>
+              <li>Hibernate</li>
+            </ul>
+          </div>
+
+          <div class="card skill reveal">
+            <h3 class="skill__title"><svg class="icon" aria-hidden="true"><use href="#i-agents" /></svg><span data-i18n="skills.ai">Applied AI &amp; LLM Integration</span></h3>
+            <ul class="chips">
+              <li data-i18n="skills.tag.agents">LLM pipelines</li>
+              <li>Anthropic API (Claude)</li>
+              <li data-i18n="skills.tag.tools">Tool / function calling</li>
+              <li>Model Context Protocol</li>
+              <li>Python</li>
+              <li>Streamlit</li>
+            </ul>
+          </div>
+
+          <div class="card skill reveal">
+            <h3 class="skill__title"><svg class="icon" aria-hidden="true"><use href="#i-spark" /></svg><span data-i18n="skills.cloud">Cloud &amp; DevOps</span></h3>
+            <ul class="chips">
+              <li>Docker</li>
+              <li>Hetzner VPS</li>
+              <li>Linux</li>
+              <li>Vercel</li>
+              <li>GitHub Actions</li>
+              <li>Git</li>
+            </ul>
+          </div>
+
+          <div class="card skill reveal">
+            <h3 class="skill__title"><svg class="icon" aria-hidden="true"><use href="#i-code" /></svg><span data-i18n="skills.langs">Languages</span></h3>
+            <ul class="chips">
+              <li>Python</li>
+              <li>Java</li>
+              <li>C++</li>
+              <li>C</li>
+              <li>C#</li>
+              <li>SQL</li>
+              <li>Bash</li>
+              <li>JavaScript</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         EDUCATION & BACKGROUND
+         ==================================================================== -->
+    <section class="section" id="education">
+      <div class="container">
+        <header class="section__head reveal">
+          <p class="eyebrow" data-i18n="edu.eyebrow">Background</p>
+          <h2 class="section__title" data-i18n="edu.title">Education &amp; background</h2>
+        </header>
+
+        <div class="edu">
+          <!-- Degree + thesis + CADE -->
+          <article class="card edu__main reveal">
+            <div class="edu__degree">
+              <span class="project__icon"><svg class="icon" aria-hidden="true"><use href="#i-cap" /></svg></span>
+              <div>
+                <h3 class="edu__title" data-i18n="edu.degree.title">BSc in Computer Engineering</h3>
+                <p class="edu__sub" data-i18n="edu.degree.track">Software Engineering track</p>
+                <p class="edu__school" data-i18n="edu.degree.school">University of Huelva, Spain</p>
+                <p class="edu__date mono">
+                  <span data-i18n="edu.degree.date">2023 — 2027 (expected)</span> ·
+                  <span data-i18n="edu.degree.status">Final-year student</span>
+                </p>
+              </div>
+            </div>
+
+            <div class="edu__block">
+              <p class="eyebrow eyebrow--sm" data-i18n="edu.tfg.label">Final-year thesis (in progress)</p>
+              <p data-i18n="edu.tfg.desc">Design of a cryptographic verification architecture and real-time event pipeline for physical-world interactions — the research foundation of Valiware Loyalty.</p>
+            </div>
+
+            <div class="edu__block">
+              <p class="eyebrow eyebrow--sm" data-i18n="edu.cade.title">CADE Network · Andalucía Emprende</p>
+              <p data-i18n="edu.cade.desc">Valiware Loyalty is supported by the Andalusian Entrepreneurship Centre network (CADE) during its pre-seed stage.</p>
+            </div>
+          </article>
+
+          <!-- Additional training timeline -->
+          <div class="card edu__side reveal">
+            <h3 class="edu__side-title" data-i18n="edu.training.title">Additional training</h3>
+            <ol class="timeline">
+              <li>
+                <div class="timeline__head"><h4 data-i18n="edu.t3.title">IBM SkillsBuild — Cybersecurity</h4><span class="mono" data-i18n="edu.t3.date">Ongoing</span></div>
+                <p data-i18n="edu.t3.desc">Professional certificate in cybersecurity fundamentals.</p>
+              </li>
+              <li>
+                <div class="timeline__head"><h4 data-i18n="edu.t1.title">Hack4u Academy</h4><span class="mono">2026</span></div>
+                <p data-i18n="edu.t1.desc">Hands-on security labs: building and exploiting vulnerable environments.</p>
+              </li>
+              <li>
+                <div class="timeline__head"><h4 data-i18n="edu.t2.title">Cyber BotCamp Málaga</h4><span class="mono">2026</span></div>
+                <p data-i18n="edu.t2.desc">Workshops and CTF challenges on vulnerability analysis, defensive security and incident response.</p>
+              </li>
+              <li>
+                <div class="timeline__head"><h4 data-i18n="edu.t4.title">English — B2</h4><span class="mono">2026</span></div>
+                <p data-i18n="edu.t4.desc">360º LPT Certificate. Native Spanish speaker.</p>
+              </li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         CONTACT
+         ==================================================================== -->
+    <section class="section section--contact" id="contact">
+      <div class="container">
+        <div class="contact reveal">
+          <h2 class="contact__title" data-i18n="contact.title">Get in Touch</h2>
+          <p class="section__lead" data-i18n="contact.lead">Interested in Valiware Loyalty, technical collaborations, or new opportunities? Feel free to reach out directly.</p>
+
+          <a class="contact__email mono" href="mailto:alvarozcode@gmail.com">alvarozcode@gmail.com</a>
+
+          <div class="contact__links">
+            <a class="btn btn--primary" href="mailto:alvarozcode@gmail.com">
+              <svg class="icon" aria-hidden="true"><use href="#i-mail" /></svg><span data-i18n="contact.email">Email me</span>
+            </a>
+            <a class="btn btn--ghost" href="https://www.linkedin.com/in/%C3%A1lvaro-zarzuela-moncada-98938035b/" target="_blank" rel="noopener noreferrer">
+              <svg class="icon" aria-hidden="true"><use href="#i-linkedin" /></svg><span>LinkedIn</span>
+            </a>
+            <a class="btn btn--ghost" href="https://github.com/alvarozcode" target="_blank" rel="noopener noreferrer">
+              <svg class="icon" aria-hidden="true"><use href="#i-github" /></svg><span>GitHub</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ======================================================================
+       FOOTER
+       ====================================================================== -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <p class="footer__copy">
+        © <span id="year">2026</span> Álvaro Zarzuela. <span data-i18n="footer.rights">All rights reserved.</span>
+      </p>
+      <ul class="footer__links">
+        <li><a href="https://github.com/alvarozcode" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><svg class="icon" aria-hidden="true"><use href="#i-github" /></svg></a></li>
+        <li><a href="https://www.linkedin.com/in/%C3%A1lvaro-zarzuela-moncada-98938035b/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><svg class="icon" aria-hidden="true"><use href="#i-linkedin" /></svg></a></li>
+        <li><a href="mailto:alvarozcode@gmail.com" aria-label="Email"><svg class="icon" aria-hidden="true"><use href="#i-mail" /></svg></a></li>
+      </ul>
+    </div>
+  </footer>
 </body>
 </html>

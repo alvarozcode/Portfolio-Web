@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex" />
+  <title>Page not found — Álvaro Zarzuela</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <script>
+    /* The old multi-page site is now a single page. Send legacy URLs to the
+       matching section so existing links (CV, LinkedIn) keep working. */
+    (function () {
+      var legacy = {
+        "paginaprincipal.html": "",
+        "sobremi.html": "",
+        "proyectos.html": "#projects",
+        "habilidades.html": "#skills",
+        "experiencia.html": "#education",
+        "educacion.html": "#education",
+        "contacto.html": "#contact"
+      };
+      var path = location.pathname;
+      var file = path.split("/").pop().toLowerCase();
+      if (Object.prototype.hasOwnProperty.call(legacy, file)) {
+        location.replace(path.slice(0, path.lastIndexOf("/") + 1) + legacy[file]);
+      }
+    })();
+  </script>
+  <style>
+    body { margin: 0; min-height: 100vh; display: grid; place-items: center; padding: 16px;
+           background: #f7f7fa; color: #0e1018; font: 16px/1.6 system-ui, sans-serif; text-align: center; }
+    code { font-family: ui-monospace, Consolas, monospace; color: #5040d9; }
+    a { color: #5040d9; }
+  </style>
+</head>
+<body>
+  <main>
+    <p><code>404</code></p>
+    <h1>Page not found</h1>
+    <p><a href="./">← Back to portfolio</a></p>
+  </main>
+</body>
+</html>
