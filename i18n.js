@@ -37,7 +37,7 @@ window.I18N = {
     "hero.lead":
       "Software Engineer & Founder @ Valiware Loyalty. Bridging clone-resistant NFC hardware with real-time distributed backends and autonomous multi-agent decision systems.",
     "hero.cta.cv": "Download CV",
-    "hero.cv.file": "assets/cv-english.pdf",
+    "hero.cv.file": "assets/CV%20-%20%C3%81lvaro%20Zarzuela%20-%20English.pdf",
     "hero.cv.name": "Alvaro-Zarzuela-CV-EN.pdf",
     "hero.cta.github": "GitHub Profile",
     "hero.cta.contact": "Get in Touch",
@@ -180,7 +180,7 @@ window.I18N = {
     "hero.lead":
       "Ingeniero de Software y Fundador en Valiware Loyalty. Conectando hardware NFC anticlonación con backends distribuidos en tiempo real y sistemas de decisión autónomos multi-agente.",
     "hero.cta.cv": "Descargar CV",
-    "hero.cv.file": "assets/cv-spanish.pdf",
+    "hero.cv.file": "assets/CV%20-%20%C3%81lvaro%20Zarzuela.pdf",
     "hero.cv.name": "Alvaro-Zarzuela-CV-ES.pdf",
     "hero.cta.github": "Perfil de GitHub",
     "hero.cta.contact": "Contactar",

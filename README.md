@@ -15,8 +15,8 @@ main.js           Language switch, theme toggle, mobile nav, scroll reveal
 i18n.js           EN / ES translation dictionary
 404.html          Not-found page; redirects legacy URLs (proyectos.html…) to sections
 assets/
-  cv-english.pdf  English CV (hero button in EN view)
-  cv-spanish.pdf  Spanish CV (hero button in ES view)
+  CV - Álvaro Zarzuela - English.pdf  English CV (hero button in EN view)
+  CV - Álvaro Zarzuela.pdf            Spanish CV (hero button in ES view)
   favicon.svg
   img/profile.jpeg
 ```
